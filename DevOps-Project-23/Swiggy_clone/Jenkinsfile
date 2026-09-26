@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/KastroVKiran/DevOps-Projects.git'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                dir('DevOps-Project-23/Swiggy_clone') {
+                    sh 'docker build -t swiggy-clone .'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'docker rm -f swiggy-container || true'
+                sh '''
+                    docker run -d \
+                    --name swiggy-container \
+                    -p 3000:3000 \
+                    -e HOST=0.0.0.0 \
+                    -v swiggy-data:/app/data \
+                    swiggy-clone
+                '''
+            }
+        }
+    }
+}
