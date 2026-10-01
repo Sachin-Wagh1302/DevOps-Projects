@@ -1,13 +1,8 @@
+```groovy
 pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/KastroVKiran/DevOps-Projects.git'
-            }
-        }
 
         stage('Docker Build') {
             steps {
@@ -32,3 +27,9 @@ pipeline {
         }
     }
 }
+```
+
+GitHub me **Jenkinsfile → Edit → pura content replace** karke **Commit changes** kar do.
+
+Phir **done** bol bhai; uske baad Jenkins me **Build Now** karenge.
+
